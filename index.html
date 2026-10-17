@@ -64,27 +64,59 @@ button {
 </main>
 <script>
 const missions = {
-  1: {q:"Ce componentă furnizează energia robotului?",
-      a:"baterie", w:"CUVÂNTUL 1"},
-  2: {q:"Ce componentă electronică este considerată creierul robotului?",
-      a:"controler", w:"CUVÂNTUL 2"},
-  3: {q:"Ce componentă transformă energia electrică în mișcare?",
-      a:"motor", w:"CUVÂNTUL 3"},
-  4: {q:"Ce dispozitiv detectează distanța față de un obstacol?",
-      a:"senzor", w:"CUVÂNTUL 4"},
-  5: {q:"Ce folosim pentru a scrie instrucțiuni pentru robot?",
-      a:"cod", w:"CUVÂNTUL 5"},
-  6: {q:"Cum se numește ansamblul de roți și axe care transmite mișcarea?",
-      a:"transmisie", w:"CUVÂNTUL 6"},
-  7: {q:"Ce mărime electrică se măsoară în volți?",
-      a:"tensiune", w:"CUVÂNTUL 7"},
-  8: {q:"Ce componentă detectează lumina?",
-      a:"senzor de lumina", w:"CUVÂNTUL 8"},
-  9: {q:"Cum se numește o succesiune de instrucțiuni executate de calculator?",
-      a:"program", w:"CUVÂNTUL 9"},
-  10:{q:"Cum se numește competiția în care roboții îndeplinesc sarcini?",
-      a:"competitie robotica", w:"CUVÂNTUL 10"}
+  1: {
+    q: "Ce componentă transformă energia electrică în mișcare?",
+    a: "motor",
+    w: "ECHIPELE"
+  },
+  2: {
+    q: "Ce mărime electrică se măsoară în volți?",
+    a: "tensiune",
+    w: "PRIND"
+  },
+  3: {
+    q: "Ce senzor poate măsura distanța până la un obstacol folosind unde sonore?",
+    a: "senzor ultrasonic",
+    w: "ÎMPREUNĂ"
+  },
+  4: {
+    q: "Ce componentă furnizează energia electrică robotului?",
+    a: "baterie",
+    w: "GÂNDESC"
+  },
+  5: {
+    q: "Cum se numește setul de instrucțiuni care îi spune calculatorului ce să facă?",
+    a: "program",
+    w: "ROBOȚII"
+  },
+  6: {
+    q: "Ce componentă detectează lumina?",
+    a: "senzor de lumină",
+    w: "ȘI"
+  },
+  7: {
+    q: "Ce piesă circulară ajută robotul să se deplaseze pe sol?",
+    a: "roată",
+    w: "COLABOREAZĂ"
+  },
+  8: {
+    q: "În ce unitate se măsoară intensitatea curentului electric?",
+    a: "amper",
+    w: "CÂND"
+  },
+  9: {
+    q: "Ce componentă electronică coordonează senzorii și motoarele robotului?",
+    a: "controler",
+    w: "VIAȚĂ"
+  },
+  10: {
+    q: "Cum se numește procesul prin care verificăm dacă robotul funcționează corect și identificăm erorile?",
+    a: "testare",
+    w: "TESTEAZĂ"
+  }
 };
+  
+    
 
 const id = new URLSearchParams(location.search).get("id");
 const mission = missions[id];
