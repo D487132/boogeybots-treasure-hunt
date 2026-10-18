@@ -3,215 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07111f">
-<title>Boogeybots — Secret Mission</title>
+<title>BOOGEYBOTS | Secret Mission</title>
 <style>
-:root{--bg:#07111f;--panel:#101f33;--panel2:#142840;--cyan:#54e6ff;--green:#8cffc1;--text:#eef7ff;--muted:#a9bfd4;--red:#ff8794}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#163658 0%,var(--bg) 58%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{padding:28px 16px 10px;text-align:center}
-.logo{font-size:.78rem;letter-spacing:.22em;color:var(--cyan);font-weight:800}
-h1{font-size:clamp(1.8rem,6vw,3rem);margin:8px 0}
-.subtitle{color:var(--muted);margin:0 auto;max-width:580px}
-main{width:min(920px,100%);margin:0 auto;padding:18px 16px 48px}
-.panel{background:linear-gradient(145deg,rgba(20,40,64,.96),rgba(10,24,41,.97));border:1px solid #2b4965;border-radius:20px;padding:clamp(18px,4vw,28px);box-shadow:0 18px 50px #0004}
-.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-.tag{font-size:.78rem;color:var(--cyan);border:1px solid #34728b;padding:6px 10px;border-radius:999px;font-weight:750;letter-spacing:.06em}
-.muted{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.mission-card{background:#0c1b2d;border:1px solid #2b4965;border-radius:14px;padding:16px;text-align:left;color:var(--text);cursor:pointer;min-height:120px;transition:transform .15s,border-color .15s}
-.mission-card:hover,.mission-card:focus{border-color:var(--cyan);transform:translateY(-2px);outline:none}
-.mission-card strong{display:block;font-size:1rem;margin:9px 0 5px}
-.mission-card small{color:var(--muted)}
-button,.button{font:inherit}
-.primary,.secondary{border:0;border-radius:12px;padding:12px 16px;cursor:pointer;font-weight:800}
-.primary{background:var(--cyan);color:#07111f}
-.secondary{background:#1b3550;color:var(--text);border:1px solid #355775}
-.primary:hover{filter:brightness(1.07)}
-button:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:3px}
-h2{line-height:1.25;margin:8px 0 16px;font-size:clamp(1.35rem,4vw,2rem)}
-.answer-row{display:flex;gap:10px;margin-top:18px}
-input{width:100%;min-width:0;background:#071523;color:var(--text);border:1px solid #355775;border-radius:12px;padding:13px 14px;font:inherit}
-#feedback{margin-top:16px;padding:13px;border-radius:12px;display:none}
-#feedback.good{display:block;background:#103a31;border:1px solid #328b6d;color:#baffdc}
-#feedback.bad{display:block;background:#3a1c2a;border:1px solid #9e4057;color:#ffd4db}
-.secret{margin-top:16px;padding:18px;background:#0b2a2a;border:1px solid #3e9b87;border-radius:14px}
-.secret-word{font-size:clamp(1.6rem,6vw,2.4rem);font-weight:900;letter-spacing:.08em;color:var(--green);overflow-wrap:anywhere}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.progress{height:8px;background:#091522;border-radius:99px;overflow:hidden;margin:10px 0 18px}
-.progress>div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));width:0;transition:width .2s}
-footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 24px}
-.hidden{display:none!important}
-ol.words{line-height:2.1;padding-left:24px}
-@media(max-width:520px){.answer-row{flex-direction:column}.answer-row button{width:100%}.panel{border-radius:16px}}
+body {
+  margin: 0;
+  background: #101510;
+  color: #e7f5df;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+main {
+  width: 85%;
+  max-width: 420px;
+  padding: 24px;
+  border: 1px solid #70b75c;
+  border-radius: 14px;
+  background: #19221a;
+  box-shadow: 0 0 22px #315b2b55;
+}
+.tag { color: #8bd66e; letter-spacing: 3px; }
+h1 { font-size: 27px; }
+p { line-height: 1.6; }
+input, button {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border-radius: 7px;
+  font-size: 16px;
+}
+input {
+  background: #101510;
+  color: white;
+  border: 1px solid #52634f;
+}
+button {
+  background: #8bd66e;
+  color: #101510;
+  font-weight: bold;
+  border: 0;
+}
+#result { white-space: pre-line; }
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">BOOGEYBOTS // FIELD OPERATIONS</div>
-  <h1>SECRET MISSION</h1>
-  <p class="subtitle">Rezolvă provocările tehnologice. Descoperă cele 10 cuvinte. Reconstruiește mesajul secret al echipei.</p>
-</header>
 <main>
-  <section id="home" class="panel">
-    <div class="topline"><span class="tag">DOSAR CONFIDENȚIAL</span><span id="progressText" class="muted">0 / 10 misiuni rezolvate</span></div>
-    <div class="progress"><div id="progressBar"></div></div>
-    <h2>Alege o misiune</h2>
-    <p class="muted">Poți scana codurile QR în orice ordine. Deschide o misiune și introdu răspunsul. Fiecare misiune acceptă mai multe variante corecte.</p>
-    <div id="missionGrid" class="grid"></div>
-    <div class="actions"><button id="finalButton" class="primary">Verifică mesajul final</button></div>
-    <p id="finalHint" class="muted">Mai întâi, rezolvă toate cele 10 misiuni.</p>
-  </section>
-
-  <section id="missionView" class="panel hidden">
-    <div class="topline"><span id="missionTag" class="tag">MISIUNEA 01</span><span class="muted">Boogeybots Treasure Hunt</span></div>
-    <h2 id="missionTitle"></h2>
-    <p id="question"></p>
-    <form id="answerForm">
-      <label for="answerInput" class="muted">Introdu răspunsul:</label>
-      <div class="answer-row"><input id="answerInput" autocomplete="off" required placeholder="Răspunsul tău…" maxlength="120"><button class="primary" type="submit">Verifică</button></div>
-    </form>
-    <div id="feedback" role="status" aria-live="polite"></div>
-    <div id="secretBox" class="secret hidden">
-      <div class="muted">CUVÂNT SECRET DEBLOCAT</div>
-      <div id="secretWord" class="secret-word"></div>
-      <p class="muted">Notează acest cuvânt și continuă vânătoarea!</p>
-    </div>
-    <div class="actions"><button id="backButton" class="secondary" type="button">← Toate misiunile</button><button id="nextButton" class="primary hidden" type="button">Următoarea misiune →</button></div>
-  </section>
-
-  <section id="finalView" class="panel hidden">
-    <div class="topline"><span class="tag">ULTIMA ETAPĂ</span><span class="muted">Dosar decriptat</span></div>
-    <h2>Reconstruiește mesajul secret</h2>
-    <p>Ai deblocat toate cuvintele! Pune-le în ordinea corectă pentru a descoperi mesajul final.</p>
-    <ol id="wordList" class="words"></ol>
-    <form id="finalForm">
-      <label for="finalInput" class="muted">Scrie propoziția secretă:</label>
-      <div class="answer-row"><input id="finalInput" autocomplete="off" required placeholder="Mesajul secret…" maxlength="300"><button class="primary" type="submit">Decriptează</button></div>
-    </form>
-    <div id="finalFeedback" role="status" aria-live="polite"></div>
-    <div class="actions"><button id="finalBack" class="secondary" type="button">← Înapoi la misiuni</button></div>
-  </section>
+  <div class="tag">BOOGEYBOTS // CLASSIFIED</div>
+  <h1>SECRET MISSION</h1>
+  <p id="number"></p>
+  <p id="question">Se încarcă misiunea...</p>
+  <form id="form">
+    <input id="answer" placeholder="Introdu răspunsul..."
+      autocomplete="off" required>
+    <button type="submit">VERIFICĂ RĂSPUNSUL</button>
+  </form>
+  <p id="result" aria-live="polite"></p>
 </main>
-<footer>BOOGEYBOTS • Gândește logic. Testează. Colaborează.</footer>
 <script>
 const missions = {
-  1: { title:"Power Drive", q:"Ce componentă transformă energia electrică în mișcare?", a:["motor","motoare"], w:"ECHIPELE" },
-  2: { title:"Voltage Lock", q:"Ce mărime electrică se măsoară în volți?", a:["tensiune","diferență de potențial"], w:"PRIND" },
-  3: { title:"Ultrasonic Scanner", q:"Ce senzor poate măsura distanța până la un obstacol folosind unde sonore?", a:["senzor ultrasonic","senzor cu ultrasunete","ultrasonic"], w:"ÎMPREUNĂ" },
-  4: { title:"Energy Core", q:"Ce componentă furnizează energia electrică robotului?", a:["baterie","acumulator","baterie electrică"], w:"GÂNDESC" },
-  5: { title:"Code Breaker", q:"Cum se numește setul de instrucțiuni care îi spune calculatorului ce să facă?", a:["program","program informatic","software"], w:"ROBOȚII" },
-  6: { title:"Light Detector", q:"Ce componentă detectează lumina?", a:["senzor de lumină","fotorezistor","senzor luminos"], w:"ȘI" },
-  7: { title:"Mobility Module", q:"Ce piesă circulară ajută robotul să se deplaseze pe sol?", a:["roată","roata"], w:"COLABOREAZĂ" },
-  8: { title:"Current Challenge", q:"În ce unitate se măsoară intensitatea curentului electric?", a:["amper","amperi","ampere"], w:"CÂND" },
-  9: { title:"Command Center", q:"Ce componentă electronică coordonează senzorii și motoarele robotului?", a:["controler","controller","unitate de control"], w:"VIAȚĂ" },
-  10: { title:"Final Diagnostics", q:"Cum se numește procesul prin care verificăm dacă robotul funcționează corect și identificăm erorile?", a:["testare","testarea","verificare"], w:"TESTEAZĂ" }
+  1: {
+    q: "Ce componentă transformă energia electrică în mișcare?",
+    a: "motor",
+    w: "ECHIPELE"
+  },
+  2: {
+    q: "Ce mărime electrică se măsoară în volți?",
+    a: "tensiune",
+    w: "PRIND"
+  },
+  3: {
+    q: "Ce senzor poate măsura distanța până la un obstacol folosind unde sonore?",
+    a: "senzor ultrasonic",
+    w: "ÎMPREUNĂ"
+  },
+  4: {
+    q: "Ce componentă furnizează energia electrică robotului?",
+    a: "baterie",
+    w: "GÂNDESC"
+  },
+  5: {
+    q: "Cum se numește setul de instrucțiuni care îi spune calculatorului ce să facă?",
+    a: "program",
+    w: "ROBOȚII"
+  },
+  6: {
+    q: "Ce componentă detectează lumina?",
+    a: "senzor de lumină",
+    w: "ȘI"
+  },
+  7: {
+    q: "Ce piesă circulară ajută robotul să se deplaseze pe sol?",
+    a: "roată",
+    w: "COLABOREAZĂ"
+  },
+  8: {
+    q: "În ce unitate se măsoară intensitatea curentului electric?",
+    a: "amper",
+    w: "CÂND"
+  },
+  9: {
+    q: "Ce componentă electronică coordonează senzorii și motoarele robotului?",
+    a: "controler",
+    w: "VIAȚĂ"
+  },
+  10: {
+    q: "Cum se numește procesul prin care verificăm dacă robotul funcționează corect și identificăm erorile?",
+    a: "testare",
+    w: "TESTEAZĂ"
+  }
 };
 
-const finalSentence = "ROBOȚII PRIND VIAȚĂ CÂND ECHIPELE GÂNDESC TESTEAZĂ ȘI COLABOREAZĂ ÎMPREUNĂ";
-const solved = new Set();
-let currentMission = null;
+const id = new URLSearchParams(location.search).get("id");
+const mission = missions[id];
+const question = document.getElementById("question");
+const result = document.getElementById("result");
+const form = document.getElementById("form");
 
-const home = document.getElementById("home");
-const missionView = document.getElementById("missionView");
-const finalView = document.getElementById("finalView");
-const grid = document.getElementById("missionGrid");
-const answerInput = document.getElementById("answerInput");
-const feedback = document.getElementById("feedback");
+function normalize(s) {
+  return s.toLocaleLowerCase("ro")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim().replace(/\s+/g, " ");
+}
 
-function normalizeAnswer(answer) {
-  return answer.trim().toLocaleLowerCase("ro-RO")
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[șş]/g, "s").replace(/[țţ]/g, "t")
-    .replace(/\s+/g, " ");
-}
-function isCorrectAnswer(userAnswer, mission) {
-  return mission.a.some(answer => normalizeAnswer(answer) === normalizeAnswer(userAnswer));
-}
-function showView(view) {
-  [home, missionView, finalView].forEach(el => el.classList.add("hidden"));
-  view.classList.remove("hidden");
-}
-function renderMissions() {
-  grid.innerHTML = "";
-  Object.entries(missions).forEach(([id, mission]) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "mission-card";
-    button.innerHTML = `<span class="tag">MISIUNEA ${String(id).padStart(2,"0")}</span><strong>${mission.title}</strong><small>${solved.has(Number(id)) ? "✓ Rezolvată — cuvânt deblocat" : "Apasă pentru a începe"}</small>`;
-    button.addEventListener("click", () => openMission(Number(id)));
-    grid.appendChild(button);
+if (!mission) {
+  document.getElementById("number").textContent =
+    "EROARE DE ACCES";
+  question.textContent =
+    "Cod QR invalid. Scanează un cod oficial al misiunii.";
+  form.hidden = true;
+} else {
+  document.getElementById("number").textContent =
+    "DOSAR #" + String(id).padStart(2, "0") + " / 10";
+  question.textContent = mission.q;
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (normalize(document.getElementById("answer").value)
+        === normalize(mission.a)) {
+      result.textContent =
+        "ACCES ACCEPTAT!\n" + mission.w;
+      result.style.color = "#8bd66e";
+    } else {
+      result.textContent =
+        "ACCES RESPINS! Mai încearcă.";
+      result.style.color = "#ff8585";
+    }
   });
-  document.getElementById("progressText").textContent = `${solved.size} / 10 misiuni rezolvate`;
-  document.getElementById("progressBar").style.width = `${solved.size * 10}%`;
-  document.getElementById("finalButton").disabled = solved.size !== 10;
-  document.getElementById("finalButton").style.opacity = solved.size === 10 ? "1" : ".55";
-  document.getElementById("finalHint").textContent = solved.size === 10 ? "Toate cuvintele sunt deblocate. Mesajul final te așteaptă!" : `Mai întâi, rezolvă toate cele 10 misiuni. (${solved.size}/10)`;
 }
-function openMission(id) {
-  currentMission = id;
-  const mission = missions[id];
-  document.getElementById("missionTag").textContent = `MISIUNEA ${String(id).padStart(2,"0")}`;
-  document.getElementById("missionTitle").textContent = mission.title;
-  document.getElementById("question").textContent = mission.q;
-  answerInput.value = "";
-  feedback.className = "";
-  feedback.textContent = "";
-  document.getElementById("secretBox").classList.toggle("hidden", !solved.has(id));
-  document.getElementById("secretWord").textContent = mission.w;
-  document.getElementById("nextButton").classList.toggle("hidden", !solved.has(id) || id === 10);
-  showView(missionView);
-  history.replaceState(null, "", `?m=${id}`);
-}
-document.getElementById("answerForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const mission = missions[currentMission];
-  if (isCorrectAnswer(answerInput.value, mission)) {
-    solved.add(currentMission);
-    feedback.className = "good";
-    feedback.textContent = "Răspuns corect! Cuvântul secret a fost deblocat.";
-    document.getElementById("secretBox").classList.remove("hidden");
-    document.getElementById("secretWord").textContent = mission.w;
-    document.getElementById("nextButton").classList.toggle("hidden", currentMission === 10);
-    renderMissions();
-  } else {
-    feedback.className = "bad";
-    feedback.textContent = "Nu chiar! Mai încearcă. Verifică termenii din domeniul roboticii și electricității.";
-  }
-});
-document.getElementById("backButton").addEventListener("click", () => {showView(home); history.replaceState(null,"",location.pathname);});
-document.getElementById("nextButton").addEventListener("click", () => openMission(Math.min(10,currentMission+1)));
-document.getElementById("finalButton").addEventListener("click", () => {
-  if (solved.size !== 10) return;
-  const list = document.getElementById("wordList");
-  list.innerHTML = "";
-  Object.values(missions).forEach(m => {const li=document.createElement("li");li.textContent=m.w;list.appendChild(li);});
-  document.getElementById("finalFeedback").textContent = "";
-  showView(finalView);
-  history.replaceState(null,"",`${location.pathname}?final=1`);
-});
-document.getElementById("finalForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const userFinal = normalizeAnswer(document.getElementById("finalInput").value).replace(/[.,!?;:]/g,"");
-  const expected = normalizeAnswer(finalSentence).replace(/[.,!?;:]/g,"");
-  const box = document.getElementById("finalFeedback");
-  if (userFinal === expected) {
-    box.className = "good";
-    box.textContent = "MESAJ DECRIPTAT! Roboții prind viață când echipele gândesc, testează și colaborează împreună. Felicitări, agent!";
-  } else {
-    box.className = "bad";
-    box.textContent = "Mesajul nu este încă în ordinea corectă. Folosește toate cele 10 cuvinte și încearcă din nou.";
-  }
-});
-document.getElementById("finalBack").addEventListener("click", () => {showView(home);history.replaceState(null,"",location.pathname);});
-function loadFromUrl() {
-  const params = new URLSearchParams(location.search);
-  const id = Number(params.get("m"));
-  if (id >= 1 && id <= 10 && missions[id]) openMission(id);
-  else if (params.get("final")) {renderMissions();showView(home);}
-}
-renderMissions();
-loadFromUrl();
 </script>
 </body>
 </html>
