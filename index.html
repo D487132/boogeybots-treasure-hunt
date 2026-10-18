@@ -1,1 +1,110 @@
+#result { white-space: pre-line; }
+</style>
+</head>
+<body>
+<main>
+  <div class="tag">BOOGEYBOTS // CLASSIFIED</div>
+  <h1>SECRET MISSION</h1>
+  <p id="number"></p>
+  <p id="question">Se încarcă misiunea...</p>
+  <form id="form">
+    <input id="answer" placeholder="Introdu răspunsul..."
+      autocomplete="off" required>
+    <button type="submit">VERIFICĂ RĂSPUNSUL</button>
+  </form>
+  <p id="result" aria-live="polite"></p>
+</main>
+<script>
+const missions = {
+  1: {
+    q: "Ce componentă transformă energia electrică în mișcare?",
+    a: "motor",
+    w: "ECHIPELE"
+  },
+  2: {
+    q: "Ce mărime electrică se măsoară în volți?",
+    a: "tensiune",
+    w: "PRIND"
+  },
+  3: {
+    q: "Ce senzor poate măsura distanța până la un obstacol folosind unde sonore?",
+    a: "senzor ultrasonic",
+    w: "ÎMPREUNĂ"
+  },
+  4: {
+    q: "Ce componentă furnizează energia electrică robotului?",
+    a: "baterie",
+    w: "GÂNDESC"
+  },
+  5: {
+    q: "Cum se numește setul de instrucțiuni care îi spune calculatorului ce să facă?",
+    a: "program",
+    w: "ROBOȚII"
+  },
+  6: {
+    q: "Ce componentă detectează lumina?",
+    a: "senzor de lumină",
+    w: "ȘI"
+  },
+  7: {
+    q: "Ce piesă circulară ajută robotul să se deplaseze pe sol?",
+    a: "roată",
+    w: "COLABOREAZĂ"
+  },
+  8: {
+    q: "În ce unitate se măsoară intensitatea curentului electric?",
+    a: "amper",
+    w: "CÂND"
+  },
+  9: {
+    q: "Ce componentă electronică coordonează senzorii și motoarele robotului?",
+    a: "controler",
+    w: "VIAȚĂ"
+  },
+  10: {
+    q: "Cum se numește procesul prin care verificăm dacă robotul funcționează corect și identificăm erorile?",
+    a: "testare",
+    w: "TESTEAZĂ"
+  }
+};
 
+const id = new URLSearchParams(location.search).get("id");
+const mission = missions[id];
+const question = document.getElementById("question");
+const result = document.getElementById("result");
+const form = document.getElementById("form");
+
+function normalize(s) {
+  return s.toLocaleLowerCase("ro")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim().replace(/\s+/g, " ");
+}
+
+if (!mission) {
+  document.getElementById("number").textContent =
+    "EROARE DE ACCES";
+  question.textContent =
+    "Cod QR invalid. Scanează un cod oficial al misiunii.";
+  form.hidden = true;
+} else {
+  document.getElementById("number").textContent =
+    "DOSAR #" + String(id).padStart(2, "0") + " / 10";
+  question.textContent = mission.q;
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (normalize(document.getElementById("answer").value)
+        === normalize(mission.a)) {
+      result.textContent =
+        "ACCES ACCEPTAT!\n" + mission.w;
+      result.style.color = "#8bd66e";
+    } else {
+      result.textContent =
+        "ACCES RESPINS! Mai încearcă.";
+      result.style.color = "#ff8585";
+    }
+  });
+}
+</script>
+</body>
+</html>
